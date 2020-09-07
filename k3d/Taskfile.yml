@@ -1,0 +1,22 @@
+version: '3'
+
+vars:
+  cluster_name: local
+
+tasks:
+
+  start:
+    cmds:
+      - k3d cluster start {{.cluster_name}}
+  
+  stop:
+    cmds:
+      - k3d cluster stop {{.cluster_name}}
+
+  delete:
+    cmds:
+      - k3d cluster delete {{.cluster_name}}
+  
+  create:
+    cmds:
+      - ./k3d.sh

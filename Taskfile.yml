@@ -1,0 +1,38 @@
+version: '3'
+
+vars:
+  local_registry: localhost:5000
+
+includes:
+  xds: 
+    taskfile: ./xds-server/Taskfile.yml
+    dir: ./xds-server
+  client: 
+    taskfile: ./hello-world/Taskfile-client.yml
+    dir: ./hello-world/
+  server: 
+    taskfile: ./hello-world/Taskfile-server.yml
+    dir: ./hello-world/
+  proto: 
+    taskfile: ./hello-world/Taskfile-proto.yml
+    dir: ./hello-world/
+  k3d: 
+    taskfile: ./k3d/Taskfile.yml
+    dir: ./k3d/
+
+tasks:
+
+  deploy:
+    cmds:
+      - task: server:deploy
+      - task: xds:deploy
+      - task: client:deploy
+  
+  remove:
+    cmds:
+      - task: client:remove
+        ignore_error: true
+      - task: server:remove
+        ignore_error: true
+      - task: xds:remove
+        ignore_error: true

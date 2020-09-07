@@ -1,0 +1,20 @@
+version: '3'
+
+vars:
+  local_registry: localhost:5000
+
+tasks:
+
+  build:
+    cmds:
+      - docker build -t {{.local_registry}}/hello-grpc-server:latest -f build/docker/Dockerfile.server .
+      - docker push {{.local_registry}}/hello-grpc-server:latest
+  
+  deploy:
+    cmds:
+      - kubectl apply -f deployments/k8s/server/
+  
+  remove:
+    cmds:
+      - cmd: kubectl delete -f deployments/k8s/server/
+        ignore_error: true

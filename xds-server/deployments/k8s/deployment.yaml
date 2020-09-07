@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: xds-server
+  labels:
+    app: xds-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: xds-server
+  template:
+    metadata:
+      labels:
+        app: xds-server
+    spec:
+      serviceAccountName: xds-server-user
+      containers:
+      - name: xds-server
+        image: localhost:5000/xds-server:latest
+        resources:
+          limits:
+            cpu: "200m"
+            memory: "250Mi"
+          requests:
+            cpu: "100m"
+            memory: "100Mi"
+        volumeMounts:
+          - mountPath: /var/run/config/app.yaml
+            subPath: app.yaml
+            name: config
+      volumes:
+      - name: config
+        configMap:
+          name: xds-config

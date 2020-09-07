@@ -1,0 +1,19 @@
+version: '3'
+
+vars:
+  local_registry: localhost:5000
+
+tasks:
+  build:
+    cmds:
+      - docker build -t {{.local_registry}}/xds-server:latest -f build/docker/Dockerfile .
+      - docker push {{.local_registry}}/xds-server:latest
+
+  deploy:
+    cmds:
+      - kubectl apply -f deployments/k8s/
+  
+  remove:
+    cmds:
+      - cmd: kubectl delete -f deployments/k8s/
+        ignore_error: true

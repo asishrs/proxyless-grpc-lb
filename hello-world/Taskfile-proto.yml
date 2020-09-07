@@ -1,0 +1,11 @@
+version: '3'
+
+vars:
+  local_registry: localhost:5000
+
+tasks:
+
+  gen:
+    cmds:
+      - mkdir -p ${PWD}/internal/app/http/rpc
+      - protoc -I${PWD}/api/proto hello.proto --go_out=paths=source_relative,plugins=grpc:${PWD}/internal/app/http/rpc

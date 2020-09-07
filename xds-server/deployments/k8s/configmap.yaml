@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: xds-config
+data:
+  app.yaml: |
+    nodeId: '25386353-c3e2-42f5-ad65-2b003c3386f5'
+    managementServer:
+      port: 18000
+      maxConcurrentStreams: 1000
+    upstreamServices: 
+      - 'hello-server'
+      - 'howdy-server'

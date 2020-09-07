@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hello-server-config
+data:
+  app.yaml: |
+    port: 50051
