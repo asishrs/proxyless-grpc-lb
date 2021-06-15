@@ -1,9 +1,9 @@
 package main
 
 import (
-	config "github.com/asishrs/proxyless-grpc-lb/common/pkg/config"
-	logger "github.com/asishrs/proxyless-grpc-lb/common/pkg/logger"
-	server "github.com/asishrs/proxyless-grpc-lb/hello-world/internal/app/server"
+	"github.com/asishrs/proxyless-grpc-lb/common/pkg/config"
+	"github.com/asishrs/proxyless-grpc-lb/common/pkg/logger"
+	"github.com/asishrs/proxyless-grpc-lb/hello-world/internal/app/server"
 	"go.uber.org/zap"
 )
 

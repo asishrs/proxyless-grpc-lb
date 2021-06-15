@@ -10,7 +10,13 @@ data:
     {
       "xds_servers": [
         {
-          "server_uri": "xds-server.default.svc.cluster.local:18000"
+          "server_uri": "xds-server.default.svc.cluster.local:18000",
+          "channel_creds": [
+            {
+              "type": "insecure"
+            }
+          ],
+          "server_features" : ["xds_v3"]
         }
       ],
       "node": {

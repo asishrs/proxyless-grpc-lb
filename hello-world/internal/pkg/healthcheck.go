@@ -3,9 +3,8 @@ package helper
 import (
 	"context"
 
+	"github.com/asishrs/proxyless-grpc-lb/common/pkg/logger"
 	"go.uber.org/zap"
-
-	logger "github.com/asishrs/proxyless-grpc-lb/common/pkg/logger"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/health/grpc_health_v1"
 	"google.golang.org/grpc/status"

@@ -5,25 +5,29 @@ import (
 	"fmt"
 	"net"
 
-	v2 "github.com/envoyproxy/go-control-plane/envoy/api/v2"
-
-	xds "github.com/envoyproxy/go-control-plane/pkg/server/v2"
-
+	logger "github.com/asishrs/proxyless-grpc-lb/common/pkg/logger"
+	clusterservice "github.com/envoyproxy/go-control-plane/envoy/service/cluster/v3"
+	discoverygrpc "github.com/envoyproxy/go-control-plane/envoy/service/discovery/v3"
+	endpointservice "github.com/envoyproxy/go-control-plane/envoy/service/endpoint/v3"
+	listenerservice "github.com/envoyproxy/go-control-plane/envoy/service/listener/v3"
+	routeservice "github.com/envoyproxy/go-control-plane/envoy/service/route/v3"
+	runtimeservice "github.com/envoyproxy/go-control-plane/envoy/service/runtime/v3"
+	secretservice "github.com/envoyproxy/go-control-plane/envoy/service/secret/v3"
+	xds "github.com/envoyproxy/go-control-plane/pkg/server/v3"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
-
-	logger "github.com/asishrs/proxyless-grpc-lb/common/pkg/logger"
-	discovery "github.com/envoyproxy/go-control-plane/envoy/service/discovery/v2"
 )
 
 // const grpcMaxConcurrentStreams = 1000
 
 func registerServices(grpcServer *grpc.Server, server xds.Server) {
-	discovery.RegisterAggregatedDiscoveryServiceServer(grpcServer, server)
-	v2.RegisterEndpointDiscoveryServiceServer(grpcServer, server)
-	v2.RegisterClusterDiscoveryServiceServer(grpcServer, server)
-	v2.RegisterRouteDiscoveryServiceServer(grpcServer, server)
-	v2.RegisterListenerDiscoveryServiceServer(grpcServer, server)
+	discoverygrpc.RegisterAggregatedDiscoveryServiceServer(grpcServer, server)
+	endpointservice.RegisterEndpointDiscoveryServiceServer(grpcServer, server)
+	clusterservice.RegisterClusterDiscoveryServiceServer(grpcServer, server)
+	routeservice.RegisterRouteDiscoveryServiceServer(grpcServer, server)
+	listenerservice.RegisterListenerDiscoveryServiceServer(grpcServer, server)
+	secretservice.RegisterSecretDiscoveryServiceServer(grpcServer, server)
+	runtimeservice.RegisterRuntimeDiscoveryServiceServer(grpcServer, server)
 }
 
 // RunManagementServer starts an xDS server at the given port.

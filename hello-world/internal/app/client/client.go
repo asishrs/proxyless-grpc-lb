@@ -4,21 +4,16 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
-
 	"time"
 
-	"go.uber.org/zap"
-
-	"golang.org/x/net/context"
-	"google.golang.org/grpc"
-
-	logger "github.com/asishrs/proxyless-grpc-lb/common/pkg/logger"
+	"github.com/asishrs/proxyless-grpc-lb/common/pkg/logger"
 	hello "github.com/asishrs/proxyless-grpc-lb/hello-world/internal/app/http/rpc"
 	helper "github.com/asishrs/proxyless-grpc-lb/hello-world/internal/pkg"
+	"go.uber.org/zap"
+	"golang.org/x/net/context"
+	"google.golang.org/grpc"
 	_ "google.golang.org/grpc/xds"
 )
-
-const ()
 
 var (
 	conn *grpc.ClientConn

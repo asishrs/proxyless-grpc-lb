@@ -5,24 +5,23 @@ import (
 	"errors"
 	"fmt"
 
-	v2 "github.com/envoyproxy/go-control-plane/envoy/api/v2"
-	listenerv2 "github.com/envoyproxy/go-control-plane/envoy/api/v2/listener"
-	v2route "github.com/envoyproxy/go-control-plane/envoy/api/v2/route"
+	listener "github.com/envoyproxy/go-control-plane/envoy/config/listener/v3"
+	route "github.com/envoyproxy/go-control-plane/envoy/config/route/v3"
 	"github.com/envoyproxy/go-control-plane/pkg/wellknown"
 
-	core "github.com/envoyproxy/go-control-plane/envoy/api/v2/core"
-	lv2 "github.com/envoyproxy/go-control-plane/envoy/config/listener/v2"
+	core "github.com/envoyproxy/go-control-plane/envoy/config/core/v3"
 	"github.com/envoyproxy/go-control-plane/pkg/cache/types"
-	cache "github.com/envoyproxy/go-control-plane/pkg/cache/v2"
+	"github.com/envoyproxy/go-control-plane/pkg/cache/v3"
 
-	ep "github.com/envoyproxy/go-control-plane/envoy/api/v2/endpoint"
-
-	logger "github.com/asishrs/proxyless-grpc-lb/common/pkg/logger"
+	"github.com/asishrs/proxyless-grpc-lb/common/pkg/logger"
+	cl "github.com/envoyproxy/go-control-plane/envoy/config/cluster/v3"
+	ep "github.com/envoyproxy/go-control-plane/envoy/config/endpoint/v3"
 	"go.uber.org/zap"
 
 	wrapperspb "github.com/golang/protobuf/ptypes/wrappers"
 
-	hcm "github.com/envoyproxy/go-control-plane/envoy/config/filter/network/http_connection_manager/v2"
+	hcm "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/network/http_connection_manager/v3"
+
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
@@ -105,7 +104,7 @@ func clusterLoadAssignment(podEndPoints []podEndPoint, clusterName string, regio
 	}
 
 	eds := []types.Resource{
-		&v2.ClusterLoadAssignment{
+		&ep.ClusterLoadAssignment{
 			ClusterName: clusterName,
 			Endpoints: []*ep.LocalityLbEndpoints{{
 				Locality: &core.Locality{
@@ -124,11 +123,11 @@ func clusterLoadAssignment(podEndPoints []podEndPoint, clusterName string, regio
 func createCluster(clusterName string) []types.Resource {
 	logger.Logger.Debug("Creating CLUSTER", zap.String("name", clusterName))
 	cls := []types.Resource{
-		&v2.Cluster{
+		&cl.Cluster{
 			Name:                 clusterName,
-			LbPolicy:             v2.Cluster_ROUND_ROBIN,
-			ClusterDiscoveryType: &v2.Cluster_Type{Type: v2.Cluster_EDS},
-			EdsClusterConfig: &v2.Cluster_EdsClusterConfig{
+			LbPolicy:             cl.Cluster_ROUND_ROBIN,
+			ClusterDiscoveryType: &cl.Cluster_Type{Type: cl.Cluster_EDS},
+			EdsClusterConfig: &cl.Cluster_EdsClusterConfig{
 				EdsConfig: &core.ConfigSource{
 					ConfigSourceSpecifier: &core.ConfigSource_Ads{},
 				},
@@ -138,21 +137,21 @@ func createCluster(clusterName string) []types.Resource {
 	return cls
 }
 
-func createVirtualHost(virtualHostName, listenerName, clusterName string) *v2route.VirtualHost {
+func createVirtualHost(virtualHostName, listenerName, clusterName string) *route.VirtualHost {
 	logger.Logger.Debug("Creating RDS", zap.String("host name", virtualHostName))
-	vh := &v2route.VirtualHost{
+	vh := &route.VirtualHost{
 		Name:    virtualHostName,
 		Domains: []string{listenerName},
 
-		Routes: []*v2route.Route{{
-			Match: &v2route.RouteMatch{
-				PathSpecifier: &v2route.RouteMatch_Prefix{
+		Routes: []*route.Route{{
+			Match: &route.RouteMatch{
+				PathSpecifier: &route.RouteMatch_Prefix{
 					Prefix: "",
 				},
 			},
-			Action: &v2route.Route_Route{
-				Route: &v2route.RouteAction{
-					ClusterSpecifier: &v2route.RouteAction_Cluster{
+			Action: &route.Route_Route{
+				Route: &route.RouteAction{
+					ClusterSpecifier: &route.RouteAction_Cluster{
 						Cluster: clusterName,
 					},
 				},
@@ -165,9 +164,9 @@ func createVirtualHost(virtualHostName, listenerName, clusterName string) *v2rou
 func createRoute(routeConfigName, virtualHostName, listenerName, clusterName string) []types.Resource {
 	vh := createVirtualHost(virtualHostName, listenerName, clusterName)
 	rds := []types.Resource{
-		&v2.RouteConfiguration{
+		&route.RouteConfiguration{
 			Name:         routeConfigName,
-			VirtualHosts: []*v2route.VirtualHost{vh},
+			VirtualHosts: []*route.VirtualHost{vh},
 		},
 	}
 	return rds
@@ -197,9 +196,9 @@ func createListener(listenerName string, clusterName string, routeConfigName str
 	}
 
 	lds := []types.Resource{
-		&v2.Listener{
+		&listener.Listener{
 			Name: listenerName,
-			ApiListener: &lv2.ApiListener{
+			ApiListener: &listener.ApiListener{
 				ApiListener: pbst,
 			},
 			Address: &core.Address{
@@ -213,10 +212,10 @@ func createListener(listenerName string, clusterName string, routeConfigName str
 					},
 				},
 			},
-			FilterChains: []*listenerv2.FilterChain{{
-				Filters: []*listenerv2.Filter{{
+			FilterChains: []*listener.FilterChain{{
+				Filters: []*listener.Filter{{
 					Name: wellknown.HTTPConnectionManager,
-					ConfigType: &listenerv2.Filter_TypedConfig{
+					ConfigType: &listener.Filter_TypedConfig{
 						TypedConfig: pbst,
 					},
 				}},
