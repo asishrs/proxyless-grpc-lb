@@ -1,4 +1,4 @@
-module github.com/asishrs/proxyless-grpc-lb/common
+module github.com/grobza/proxyless-grpc-lb/common
 
 go 1.15
 

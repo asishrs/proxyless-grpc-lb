@@ -4,7 +4,7 @@ import (
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
 
-	logger "github.com/asishrs/proxyless-grpc-lb/common/pkg/logger"
+	logger "github.com/grobza/proxyless-grpc-lb/common/pkg/logger"
 )
 
 // ReadConfig reads the config data from file

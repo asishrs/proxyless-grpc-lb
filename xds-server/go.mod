@@ -1,9 +1,9 @@
-module github.com/asishrs/proxyless-grpc-lb/xds-server
+module github.com/grobza/proxyless-grpc-lb/xds-server
 
 go 1.15
 
 require (
-	github.com/asishrs/proxyless-grpc-lb/common v0.0.0-20200824005131-5718db7e19f5
+	github.com/grobza/proxyless-grpc-lb/common v0.0.0-20200824005131-5718db7e19f5
 	github.com/census-instrumentation/opencensus-proto v0.3.0 // indirect
 	github.com/cncf/udpa/go v0.0.0-20200629203442-efcf912fb354 // indirect
 	github.com/envoyproxy/go-control-plane v0.9.6
@@ -41,5 +41,5 @@ replace (
 	github.com/googleapis/gnostic => github.com/googleapis/gnostic v0.4.0
 	k8s.io/apimachinery => k8s.io/apimachinery v0.18.0
 	k8s.io/client-go => k8s.io/client-go v0.18.0
-	github.com/envoyproxy/go-control-plane => github.com/asishrs/go-control-plane v0.9.7
+	github.com/envoyproxy/go-control-plane => github.com/grobza/go-control-plane v0.9.7
 )

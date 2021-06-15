@@ -1,10 +1,10 @@
-module github.com/asishrs/proxyless-grpc-lb/hello-world
+module github.com/grobza/proxyless-grpc-lb/hello-world
 
 go 1.15
 
 require (
 	cloud.google.com/go v0.64.0 // indirect
-	github.com/asishrs/proxyless-grpc-lb/common v0.0.0-20200824005131-5718db7e19f5
+	github.com/grobza/proxyless-grpc-lb/common v0.0.0-20200824005131-5718db7e19f5
 	github.com/cncf/udpa/go v0.0.0-20200629203442-efcf912fb354 // indirect
 	github.com/envoyproxy/go-control-plane v0.9.6 // indirect
 	github.com/envoyproxy/protoc-gen-validate v0.4.1 // indirect

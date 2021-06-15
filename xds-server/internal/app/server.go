@@ -12,7 +12,7 @@ import (
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 
-	logger "github.com/asishrs/proxyless-grpc-lb/common/pkg/logger"
+	logger "github.com/grobza/proxyless-grpc-lb/common/pkg/logger"
 	discovery "github.com/envoyproxy/go-control-plane/envoy/service/discovery/v2"
 )
 

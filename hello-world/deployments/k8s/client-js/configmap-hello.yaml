@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: howdy-client-config
+  name: hello-client-js-config
 data:
   app.yaml: |
     hello:
-      host: 'xds:///howdy-server-listener'
+      host: 'xds:///hello-server-listener'
   xds_bootstrap.json: |
     {
       "xds_servers": [
@@ -16,7 +16,7 @@ data:
       "node": {
         "id": "25386353-c3e2-42f5-ad65-2b003c3386f5",
         "metadata": {
-          "TEST_PROJECT_ID": "We45523"
+          "TEST_PROJECT_ID": "DE455tt"
         },
         "locality": {
           "zone": "my-zone"

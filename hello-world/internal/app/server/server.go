@@ -13,9 +13,9 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/health/grpc_health_v1"
 
-	logger "github.com/asishrs/proxyless-grpc-lb/common/pkg/logger"
-	hello "github.com/asishrs/proxyless-grpc-lb/hello-world/internal/app/http/rpc"
-	helper "github.com/asishrs/proxyless-grpc-lb/hello-world/internal/pkg"
+	logger "github.com/grobza/proxyless-grpc-lb/common/pkg/logger"
+	hello "github.com/grobza/proxyless-grpc-lb/hello-world/internal/app/http/rpc"
+	helper "github.com/grobza/proxyless-grpc-lb/hello-world/internal/pkg"
 )
 
 type server struct {
