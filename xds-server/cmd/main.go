@@ -4,17 +4,13 @@ import (
 	"context"
 	"time"
 
-	cache "github.com/envoyproxy/go-control-plane/pkg/cache/v2"
-	xds "github.com/envoyproxy/go-control-plane/pkg/server/v2"
-
-	app "github.com/asishrs/proxyless-grpc-lb/xds-server/internal/app"
-
+	"github.com/envoyproxy/go-control-plane/pkg/cache/v3"
+	xds "github.com/envoyproxy/go-control-plane/pkg/server/v3"
+	config2 "github.com/grobza/proxyless-grpc-lb/hello-world/config"
+	logger2 "github.com/grobza/proxyless-grpc-lb/hello-world/logger"
+	"github.com/grobza/proxyless-grpc-lb/xds-server/internal/app"
+	elogger "github.com/grobza/proxyless-grpc-lb/xds-server/internal/app"
 	"go.uber.org/zap"
-
-	config "github.com/asishrs/proxyless-grpc-lb/common/pkg/config"
-	logger "github.com/asishrs/proxyless-grpc-lb/common/pkg/logger"
-
-	elogger "github.com/asishrs/proxyless-grpc-lb/xds-server/internal/app"
 )
 
 var (
@@ -27,14 +23,14 @@ func init() {
 
 func main() {
 
-	config, err := config.ReadConfig()
+	config, err := config2.ReadConfig()
 	if err != nil {
-		logger.Logger.Fatal("Unable to read config", zap.Error(err))
+		logger2.Logger.Fatal("Unable to read config", zap.Error(err))
 	}
 
 	ctx := context.Background()
 
-	logger.Logger.Info("Starting control plane")
+	logger2.Logger.Info("Starting control plane")
 	signal := make(chan struct{})
 	cb := &app.Callbacks{
 		Signal:   signal,
@@ -51,14 +47,14 @@ func main() {
 
 	cb.Report()
 
-	logger.Logger.Debug("Status", zap.Any("keys", snapshotCache.GetStatusKeys()))
+	logger2.Logger.Debug("Status", zap.Any("keys", snapshotCache.GetStatusKeys()))
 
 	nodeID := config.GetString("nodeId")
-	logger.Logger.Info("Creating Node", zap.String("Id", nodeID))
+	logger2.Logger.Info("Creating Node", zap.String("Id", nodeID))
 	for {
 		ss, err := app.GenerateSnapshot(config.GetStringSlice("upstreamServices"))
 		if err != nil {
-			logger.Logger.Error("Error in Generating the SnapShot", zap.Error(err))
+			logger2.Logger.Error("Error in Generating the SnapShot", zap.Error(err))
 		} else {
 			snapshotCache.SetSnapshot(nodeID, *ss)
 			time.Sleep(60 * time.Second)

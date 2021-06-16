@@ -16,7 +16,7 @@ package app
 import (
 	"log"
 
-	zlogger "github.com/asishrs/proxyless-grpc-lb/common/pkg/logger"
+	logger2 "github.com/grobza/proxyless-grpc-lb/hello-world/logger"
 	"go.uber.org/zap"
 )
 
@@ -32,7 +32,7 @@ func (logger Logger) Debugf(format string, args ...interface{}) {
 	// if logger.Debug {
 	log.Printf(format+"\n", args...)
 
-	zlogger.Logger.Debug("", zap.String("format", format), zap.Any("Args", args))
+	logger2.Logger.Debug("", zap.String("format", format), zap.Any("Args", args))
 	// }
 }
 
@@ -40,18 +40,18 @@ func (logger Logger) Debugf(format string, args ...interface{}) {
 func (logger Logger) Infof(format string, args ...interface{}) {
 	// if logger.Debug {
 	log.Printf(format+"\n", args...)
-	zlogger.Logger.Debug("", zap.String("format", format), zap.Any("Args", args))
+	logger2.Logger.Debug("", zap.String("format", format), zap.Any("Args", args))
 	// }
 }
 
 // Log to stdout always.
 func (logger Logger) Warnf(format string, args ...interface{}) {
 	log.Printf(format+"\n", args...)
-	zlogger.Logger.Debug("", zap.String("format", format), zap.Any("Args", args))
+	logger2.Logger.Debug("", zap.String("format", format), zap.Any("Args", args))
 }
 
 // Log to stdout always.
 func (logger Logger) Errorf(format string, args ...interface{}) {
 	log.Printf(format+"\n", args...)
-	zlogger.Logger.Debug("", zap.String("format", format), zap.Any("Args", args))
+	logger2.Logger.Debug("", zap.String("format", format), zap.Any("Args", args))
 }

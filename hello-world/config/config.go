@@ -1,15 +1,14 @@
 package config
 
 import (
+	logger2 "github.com/grobza/proxyless-grpc-lb/hello-world/logger"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
-
-	logger "github.com/asishrs/proxyless-grpc-lb/common/pkg/logger"
 )
 
 // ReadConfig reads the config data from file
 func ReadConfig() (*viper.Viper, error) {
-	logger.Logger.Debug("Reading configuration", zap.String("file", "/var/run/config/app.yaml"))
+	logger2.Logger.Debug("Reading configuration", zap.String("file", "/var/run/config/app.yaml"))
 	v := viper.New()
 	v.SetConfigFile("/var/run/config/app.yaml")
 	v.AutomaticEnv()
