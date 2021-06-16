@@ -16,7 +16,7 @@ package app
 import (
 	"log"
 
-	zlogger "github.com/grobza/proxyless-grpc-lb/common/pkg/logger"
+	zlogger "github.com/asishrs/proxyless-grpc-lb/common/pkg/logger"
 	"go.uber.org/zap"
 )
 

@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: howdy-server
+  labels:
+    app: howdy-server
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: howdy-server
+  template:
+    metadata:
+      labels:
+        app: howdy-server
+    spec:
+      containers:
+      - name: howdy-server
+        image: localhost:5000/hello-grpc-server:latest
+        resources:
+          limits:
+            cpu: "200m"
+            memory: "250Mi"
+          requests:
+            cpu: "100m"
+            memory: "100Mi"
+        volumeMounts:
+          - mountPath: /var/run/config/app.yaml
+            subPath: app.yaml
+            name: config
+        readinessProbe:
+          exec:
+            command: ["/bin/grpc_health_probe", "-addr=:50052"]
+          initialDelaySeconds: 5
+        livenessProbe:
+          exec:
+            command: ["/bin/grpc_health_probe", "-addr=:50052"]
+      volumes:
+        - name: config
+          configMap:
+            name: howdy-server-config

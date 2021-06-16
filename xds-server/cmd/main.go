@@ -7,14 +7,14 @@ import (
 	cache "github.com/envoyproxy/go-control-plane/pkg/cache/v2"
 	xds "github.com/envoyproxy/go-control-plane/pkg/server/v2"
 
-	app "github.com/grobza/proxyless-grpc-lb/xds-server/internal/app"
+	app "github.com/asishrs/proxyless-grpc-lb/xds-server/internal/app"
 
 	"go.uber.org/zap"
 
-	config "github.com/grobza/proxyless-grpc-lb/common/pkg/config"
-	logger "github.com/grobza/proxyless-grpc-lb/common/pkg/logger"
+	config "github.com/asishrs/proxyless-grpc-lb/common/pkg/config"
+	logger "github.com/asishrs/proxyless-grpc-lb/common/pkg/logger"
 
-	elogger "github.com/grobza/proxyless-grpc-lb/xds-server/internal/app"
+	elogger "github.com/asishrs/proxyless-grpc-lb/xds-server/internal/app"
 )
 
 var (

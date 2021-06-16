@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-client-js
+  name: howdy-client
   labels:
-    app: hello-client-js
+    app: howdy-client
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hello-client-js
+      app: howdy-client
   template:
     metadata:
       labels:
-        app: hello-client-js
+        app: howdy-client
     spec:
       containers:
-      - name: hello-client-js
-        image: localhost:5000/hello-grpc-client-js:latest
+      - name: howdy-client
+        image: localhost:5000/hello-grpc-client:latest
         resources:
           limits:
             cpu: "200m"
@@ -30,4 +30,4 @@ spec:
       volumes:
         - name: client-config
           configMap:
-            name: hello-client-js-config
+            name: howdy-client-config
