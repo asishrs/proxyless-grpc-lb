@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-client-js
+  labels:
+    app: hello-client-js
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-client-js
+  template:
+    metadata:
+      labels:
+        app: hello-client-js
+    spec:
+      containers:
+      - name: hello-client-js
+        image: localhost:5000/hello-grpc-client-js:latest
+        resources:
+          limits:
+            cpu: "200m"
+            memory: "250Mi"
+          requests:
+            cpu: "100m"
+            memory: "100Mi"
+        volumeMounts:
+          - mountPath: /var/run/config
+            name: client-config
+      volumes:
+        - name: client-config
+          configMap:
+            name: hello-client-js-config

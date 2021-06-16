@@ -10,6 +10,9 @@ includes:
   client: 
     taskfile: ./hello-world/Taskfile-client.yml
     dir: ./hello-world/
+  client-js:
+    taskfile: ./hello-world/Taskfile-client-js.yml
+    dir: ./hello-world/
   server: 
     taskfile: ./hello-world/Taskfile-server.yml
     dir: ./hello-world/
@@ -27,6 +30,7 @@ tasks:
       - task: server:deploy
       - task: xds:deploy
       - task: client:deploy
+      - task: client-js:deploy
   
   remove:
     cmds:
@@ -35,4 +39,6 @@ tasks:
       - task: server:remove
         ignore_error: true
       - task: xds:remove
+        ignore_error: true
+      - task: client-js:remove
         ignore_error: true

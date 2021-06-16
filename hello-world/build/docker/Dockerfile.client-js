@@ -1,0 +1,20 @@
+FROM node:12-alpine3.12 as build
+
+WORKDIR /app
+
+RUN GRPC_HEALTH_PROBE_VERSION=v0.3.2 && \
+    wget -qO/bin/grpc_health_probe https://github.com/grpc-ecosystem/grpc-health-probe/releases/download/${GRPC_HEALTH_PROBE_VERSION}/grpc_health_probe-linux-amd64 && \
+    chmod +x /bin/grpc_health_probe
+
+RUN npm init -y
+RUN npm i @grpc/grpc-js
+RUN npm i @grpc/grpc-js-xds
+RUN npm i @grpc/proto-loader
+
+COPY . .
+
+ENV GRPC_XDS_BOOTSTRAP=/var/run/config/xds_bootstrap.json
+#COPY --from=build /bin/grpc_health_probe /bin
+ENV NPM_CONFIG_LOGLEVEL info
+
+ENTRYPOINT [ "node",  "internal/app/client-js/client.js" ]
