@@ -6,7 +6,7 @@ import (
 	"sync"
 
 	discovery "github.com/envoyproxy/go-control-plane/envoy/service/discovery/v3"
-	logger2 "github.com/grobza/proxyless-grpc-lb/hello-world/logger"
+	logger2 "github.com/grobza/proxyless-grpc-lb/xds-server/logger"
 	"go.uber.org/zap"
 )
 

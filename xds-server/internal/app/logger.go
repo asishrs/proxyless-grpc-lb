@@ -16,7 +16,7 @@ package app
 import (
 	"log"
 
-	logger2 "github.com/grobza/proxyless-grpc-lb/hello-world/logger"
+	logger2 "github.com/grobza/proxyless-grpc-lb/xds-server/logger"
 	"go.uber.org/zap"
 )
 

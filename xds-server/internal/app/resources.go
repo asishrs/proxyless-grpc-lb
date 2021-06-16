@@ -9,7 +9,7 @@ import (
 	route "github.com/envoyproxy/go-control-plane/envoy/config/route/v3"
 	"github.com/envoyproxy/go-control-plane/pkg/cache/v3"
 	"github.com/envoyproxy/go-control-plane/pkg/wellknown"
-	logger2 "github.com/grobza/proxyless-grpc-lb/hello-world/logger"
+	logger2 "github.com/grobza/proxyless-grpc-lb/xds-server/logger"
 
 	cl "github.com/envoyproxy/go-control-plane/envoy/config/cluster/v3"
 	core "github.com/envoyproxy/go-control-plane/envoy/config/core/v3"

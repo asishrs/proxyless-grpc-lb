@@ -6,7 +6,7 @@ vars:
 tasks:
   build:
     cmds:
-      - docker build -t {{.local_registry}}/xds-server:latest -f build/docker/Dockerfile .
+      - docker build -t {{.local_registry}}/xds-server:latest -f ./build/docker/Dockerfile .
       - docker push {{.local_registry}}/xds-server:latest
 
   deploy:
