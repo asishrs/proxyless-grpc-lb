@@ -3,15 +3,12 @@ package main
 import (
 	"fmt"
 
-	"google.golang.org/grpc"
-
+	"github.com/grobza/proxyless-grpc-lb/common/pkg/config"
+	"github.com/grobza/proxyless-grpc-lb/common/pkg/logger"
+	"github.com/grobza/proxyless-grpc-lb/hello-world/internal/app/client"
 	"go.uber.org/zap"
-
-	config "github.com/grobza/proxyless-grpc-lb/common/pkg/config"
-	logger "github.com/grobza/proxyless-grpc-lb/common/pkg/logger"
-	client "github.com/grobza/proxyless-grpc-lb/hello-world/internal/app/client"
+	"google.golang.org/grpc"
 )
-
 
 var (
 	conn *grpc.ClientConn
