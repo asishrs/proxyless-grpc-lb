@@ -6,22 +6,18 @@ RUN GRPC_HEALTH_PROBE_VERSION=v0.3.2 && \
     wget -qO/bin/grpc_health_probe https://github.com/grpc-ecosystem/grpc-health-probe/releases/download/${GRPC_HEALTH_PROBE_VERSION}/grpc_health_probe-linux-amd64 && \
     chmod +x /bin/grpc_health_probe
 
+COPY go.mod go.sum ./
 
-RUN GO111MODULE=off go get -u .../.
+RUN go mod download
 
 COPY . .
 
-RUN GO111MODULE=off CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o main ./cmd/client
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o main ./cmd/server
 
 FROM alpine:3.12.0
-
-ENV GRPC_GO_LOG_VERBOSITY_LEVEL=99
-ENV GRPC_GO_LOG_SEVERITY_LEVEL=info
-ENV GRPC_XDS_BOOTSTRAP=/var/run/config/xds_bootstrap.json
 
 COPY --from=build /app/main /
 COPY --from=build /bin/grpc_health_probe /bin
 
 ENTRYPOINT [ "./main" ]
-
 

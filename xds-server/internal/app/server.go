@@ -13,7 +13,7 @@ import (
 	runtimeservice "github.com/envoyproxy/go-control-plane/envoy/service/runtime/v3"
 	secretservice "github.com/envoyproxy/go-control-plane/envoy/service/secret/v3"
 	xds "github.com/envoyproxy/go-control-plane/pkg/server/v3"
-	logger2 "github.com/grobza/proxyless-grpc-lb/hello-world/logger"
+	logger2 "github.com/grobza/proxyless-grpc-lb/xds-server/logger"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 )
