@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"net"
 
-	logger "github.com/asishrs/proxyless-grpc-lb/common/pkg/logger"
 	clusterservice "github.com/envoyproxy/go-control-plane/envoy/service/cluster/v3"
 	discoverygrpc "github.com/envoyproxy/go-control-plane/envoy/service/discovery/v3"
 	endpointservice "github.com/envoyproxy/go-control-plane/envoy/service/endpoint/v3"
@@ -14,6 +13,7 @@ import (
 	runtimeservice "github.com/envoyproxy/go-control-plane/envoy/service/runtime/v3"
 	secretservice "github.com/envoyproxy/go-control-plane/envoy/service/secret/v3"
 	xds "github.com/envoyproxy/go-control-plane/pkg/server/v3"
+	logger2 "github.com/grobza/proxyless-grpc-lb/hello-world/logger"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 )
@@ -38,16 +38,16 @@ func RunManagementServer(ctx context.Context, server xds.Server, port uint, maxC
 
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
 	if err != nil {
-		logger.Logger.Error("Failed to listen", zap.Error(err))
+		logger2.Logger.Error("Failed to listen", zap.Error(err))
 	}
 
 	// register services
 	registerServices(grpcServer, server)
 
-	logger.Logger.Info("Management server listening", zap.Uint("port", port))
+	logger2.Logger.Info("Management server listening", zap.Uint("port", port))
 	go func() {
 		if err = grpcServer.Serve(lis); err != nil {
-			logger.Logger.Error("Failed to start management server", zap.Error(err))
+			logger2.Logger.Error("Failed to start management server", zap.Error(err))
 		}
 	}()
 	<-ctx.Done()

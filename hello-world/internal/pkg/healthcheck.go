@@ -3,7 +3,7 @@ package helper
 import (
 	"context"
 
-	"github.com/asishrs/proxyless-grpc-lb/common/pkg/logger"
+	logger2 "github.com/grobza/proxyless-grpc-lb/hello-world/logger"
 	"go.uber.org/zap"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/health/grpc_health_v1"
@@ -15,7 +15,7 @@ type Health struct{}
 
 // Check is for HealthCheck
 func (h *Health) Check(ctx context.Context, req *grpc_health_v1.HealthCheckRequest) (*grpc_health_v1.HealthCheckResponse, error) {
-	logger.Logger.Debug("health check", zap.Any("status", grpc_health_v1.HealthCheckResponse_SERVING))
+	logger2.Logger.Debug("health check", zap.Any("status", grpc_health_v1.HealthCheckResponse_SERVING))
 	return &grpc_health_v1.HealthCheckResponse{
 		Status: grpc_health_v1.HealthCheckResponse_SERVING,
 	}, nil

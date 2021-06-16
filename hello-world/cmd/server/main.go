@@ -1,17 +1,17 @@
 package main
 
 import (
-	"github.com/asishrs/proxyless-grpc-lb/common/pkg/config"
-	"github.com/asishrs/proxyless-grpc-lb/common/pkg/logger"
-	"github.com/asishrs/proxyless-grpc-lb/hello-world/internal/app/server"
+	config2 "github.com/grobza/proxyless-grpc-lb/hello-world/config"
+	"github.com/grobza/proxyless-grpc-lb/hello-world/internal/app/server"
+	logger2 "github.com/grobza/proxyless-grpc-lb/hello-world/logger"
 	"go.uber.org/zap"
 )
 
 func main() {
 
-	config, err := config.ReadConfig()
+	config, err := config2.ReadConfig()
 	if err != nil {
-		logger.Logger.Fatal("Unable to read config", zap.Error(err))
+		logger2.Logger.Fatal("Unable to read config", zap.Error(err))
 	}
 
 	server.StartServer(config.GetInt("port"))

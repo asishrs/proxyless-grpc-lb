@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 
-	"github.com/asishrs/proxyless-grpc-lb/common/pkg/config"
-	"github.com/asishrs/proxyless-grpc-lb/common/pkg/logger"
-	"github.com/asishrs/proxyless-grpc-lb/hello-world/internal/app/client"
+	config2 "github.com/grobza/proxyless-grpc-lb/hello-world/config"
+	"github.com/grobza/proxyless-grpc-lb/hello-world/internal/app/client"
+	logger2 "github.com/grobza/proxyless-grpc-lb/hello-world/logger"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 )
@@ -16,9 +16,9 @@ var (
 
 func main() {
 
-	config, err := config.ReadConfig()
+	config, err := config2.ReadConfig()
 	if err != nil {
-		logger.Logger.Fatal("Unable to read config", zap.Error(err))
+		logger2.Logger.Fatal("Unable to read config", zap.Error(err))
 	}
 
 	client.StartClient(fmt.Sprintf("%s", config.GetString("hello.host")))
