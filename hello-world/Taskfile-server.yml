@@ -7,7 +7,7 @@ tasks:
 
   build:
     cmds:
-      - docker build -t {{.local_registry}}/hello-grpc-server:latest -f ../Dockerfile.server ../
+      - docker build -t {{.local_registry}}/hello-grpc-server:latest -f build/docker/Dockerfile.server ./
       - docker push {{.local_registry}}/hello-grpc-server:latest
   
   deploy:
