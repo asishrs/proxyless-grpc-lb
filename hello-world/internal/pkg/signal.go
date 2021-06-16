@@ -4,7 +4,7 @@ import (
 	"os"
 	"time"
 
-	logger "github.com/grobza/proxyless-grpc-lb/common/pkg/logger"
+	logger "github.com/asishrs/proxyless-grpc-lb/common/pkg/logger"
 	"google.golang.org/grpc"
 )
 
