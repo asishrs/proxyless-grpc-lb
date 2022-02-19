@@ -12,7 +12,7 @@ COPY . .
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o main ./cmd/
 # RUN chmod +x main
 
-FROM alpine:3.12.0
+FROM alpine:3.14
 COPY --from=build /app/main /
 
 ENTRYPOINT [ "./main" ]
