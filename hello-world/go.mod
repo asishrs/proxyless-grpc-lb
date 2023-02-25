@@ -16,8 +16,7 @@ require (
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	go.uber.org/zap v1.15.0
-	golang.org/x/net v0.0.0-20200822124328-c89045814202
-	golang.org/x/sys v0.0.0-20200821140526-fda516888d29 // indirect
+	golang.org/x/net v0.7.0
 	google.golang.org/grpc v1.31.0
 	google.golang.org/protobuf v1.25.0
 	gopkg.in/ini.v1 v1.60.1 // indirect
