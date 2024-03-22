@@ -14,6 +14,6 @@ require (
 	go.uber.org/zap v1.15.0
 	golang.org/x/net v0.9.0
 	google.golang.org/grpc v1.56.3
-	google.golang.org/protobuf v1.30.0
+	google.golang.org/protobuf v1.33.0
 	gopkg.in/ini.v1 v1.60.1 // indirect
 )
